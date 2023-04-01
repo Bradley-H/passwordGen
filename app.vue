@@ -5,6 +5,7 @@
     <!-- input for password -->
     <section class="title flex">
       <a-input :max-length="store.maxLength" disabled size="large" v-model:value="store.password" fluid
+      style="color: black"
         placeholder="Generated Password" />
       <svg @click="openNotification" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
@@ -76,7 +77,7 @@ const openNotification = () => {
     description:
       'Your password has been copied to your clipboard.',
     icon: () => h(SmileOutlined, { style: 'color:  #108ee9; transform: translate(-20px, 3px); paddingLeft: 10px' }),
-    duration: 1.75,
+    duration: 2.25,
     style: {
       marginRight: 100,
       backgroundColor: '#242320',
@@ -160,6 +161,8 @@ let passwordGenerator = {
   }
 
 };
+
+
 </script>
 
 <style>
