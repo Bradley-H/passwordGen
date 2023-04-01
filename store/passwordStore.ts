@@ -7,7 +7,7 @@ export const usePasswordStore = defineStore("passwordStore", () => {
     const maxLength = ref(20)
     const currentLength = ref(0)
     //strength of password state and methods
-    const str = ref(90)
+    const str = ref(0)
     return{
         password,
         maxLength,
