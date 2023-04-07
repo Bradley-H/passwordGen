@@ -1,12 +1,11 @@
 <template>
   <main class="flex">
-    <a-typography-title style="color: lightgray" :level="level">Password
+      <a-typography-title style="color: lightgray" :level="level">Password
       Generator</a-typography-title>
     <!-- input for password -->
     <section class="title flex">
       <a-input :max-length="store.maxLength" disabled size="large" v-model:value="store.password" fluid
-      style="color: black"
-        placeholder="Generated Password" />
+      style="color: black" />
       <svg @click="openNotification" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
         enable-background="new 0 0 1000 1000" xml:space="preserve">
@@ -42,6 +41,7 @@
         @click="passwordGenerator.generatePassword(getRandomUpper, getRandomLower, getRandomNumber, getRandomSymbol)"
         type="primary" size="large" block>Generate Password</a-button>
     </section>
+    
   </main>
 </template>
 
@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import { notification } from 'ant-design-vue';
-import { SmileOutlined } from '@ant-design/icons-vue';
+import { CloseOutlined, SmileOutlined } from '@ant-design/icons-vue';
 import { usePasswordStore } from '@/store/passwordStore'
 
 //store//
@@ -137,9 +137,9 @@ let passwordGenerator = {
     upper: string,
     lower: string,
     number: string,
-    symbol: string) {
-      //reset the password
-    store.password = ''
+    symbol: string){
+//reset the password
+store.password = ''
     // filter out unchecked types
     let typesCount = options.value.filter((box: any) => box.checked).length;
     let typesArr = options.value.filter((box: any) => box.checked).map((box: any) => box.id);
@@ -147,6 +147,20 @@ let passwordGenerator = {
 
     // don't run if nothing is checked or if the length is 0
     if (typesCount < 1 || store.currentLength === 0) {
+      notification.open({
+        message: '',
+        description:
+          'Please select at least one option.',
+        icon: () => h(CloseOutlined, { style: 'color:  #ffff; transform: translate(-20px, -3px); paddingLeft: 10px' }),
+        duration: 2.3,
+        style: {
+          marginRight: 100,
+          backgroundColor: '#242320',
+          color: "#fff"
+        },
+        closeIcon: () => h(''),
+      });
+      store.str = 0
       return "";
     }
     // loop over the length, call the function for each type that is checked and add the value to the password string
@@ -159,8 +173,8 @@ let passwordGenerator = {
     }
     passwordEnthorpy()
   }
+}
 
-};
 
 
 </script>
@@ -169,6 +183,10 @@ let passwordGenerator = {
 .flex,
 label span {
   display: flex;
+}
+
+input::placeholder {
+  color: #177ddc;
 }
 
 main {
@@ -215,23 +233,13 @@ svg:hover {
   fill: #177ddc;
 }
 
-@media screen and (max-width: 768px) {
-  .heading h1 {
-    font-size: 1.5rem;
-  }
-
-  .heading h2 {
-    font-size: 1.5rem;
-  }
-}
-
 h2 {
   font-size: 40px;
 }
 
 section {
   background-color: #242320;
-  width: clamp(340px, 90%, 700px);
+  width: clamp(340px, 90%, 970px);
   padding: 1rem 2rem;
 }
 
@@ -243,4 +251,36 @@ label span {
   color: #177ddc;
   font-weight: bold;
   margin: .5rem 0;
-}</style>
+}
+
+@media screen and (max-width: 768px) {
+  .heading h1 {
+    font-size: 1.5rem;
+  }
+
+  .heading h2 {
+    font-size: 1.5rem;
+  }
+}
+
+
+@media screen and (max-width: 2000px) {
+section{
+  width: clamp(700px, 75%, 1700px);
+}
+
+.heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading h2 {
+    font-size: 2rem;
+  }
+
+  label span{
+    font-size: 1.1rem;
+    transform: translateY(-1px);
+  }
+}
+
+</style>
