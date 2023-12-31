@@ -28,8 +28,7 @@
       </div>
 
       <div class="str flex">
-        <h3>Strength: </h3>
-
+          <h3>Strength: </h3>
         <a-progress :percent="store.str" :stroke-color="{
           '0%': '#FF0000',
           '100%': '#00FF00',
@@ -59,7 +58,7 @@ const store = usePasswordStore()
 
 //typography title level
 const level = ref(2);
-const options: any = ref([
+const options = ref([
   { id: 0, name: 'Include Uppercase', checked: false },
   { id: 1, name: 'Include Lowercase', checked: false },
   { id: 2, name: 'Include Numbers', checked: false },
@@ -103,8 +102,8 @@ const getRandomFunc = (min: any, max: any) => {
 
 
 // this uses the getrandomFunc to get a random character from the ascii table
-const getRandomLower = () => getRandomFunc(26, 97);
-const getRandomUpper = () => getRandomFunc(26, 65);
+const getRandomLower = () => getRandomFunc(26, 65);
+const getRandomUpper = () => getRandomFunc(26, 97);
 const getRandomNumber = () => getRandomFunc(10, 48);
 const getRandomSymbol = () => {
   const symbols = "!@#$%^&*(){}[]/,.";
@@ -263,10 +262,16 @@ label span {
   }
 }
 
+@media (max-width: 1200px) {
+  section{
+    width: clamp(800px, 70%, 1000px);
+  }
+}
+
 
 @media screen and (max-width: 2000px) {
 section{
-  width: clamp(700px, 75%, 1700px);
+  width: clamp(900px, 75%, 1200px);
 }
 
 .heading h1 {
